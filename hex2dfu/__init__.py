@@ -18,26 +18,26 @@ import struct
 import binascii
 
 
-def hex_to_image(ih, segment):
+def hex_to_element(ih, segment):
     """
-    Return an image object
+    Return an element string
     """
-    print(segment)
     binstr = ih.tobinstr(*segment)
     return struct.pack('>LL', segment[0], segment[1] - segment[0]) + binstr
 
 
 def hex_to_target(ih):
     """
-    Return a target object
+    Return a target string
     """
-    images = [hex_to_image(ih, segment) for segment in ih.segments()]
-    image_data = ''.join(images)
+    elements = [hex_to_element(ih, segment) for segment in ih.segments()]
+    element_data = ''.join(elements)
 
-    return struct.pack('>6sbb255sLL', 'Target', 0, 0, '', len(image_data), len(images)) + image_data
+    return struct.pack('>6sbb255sLL', 'Target', 0, 0, '', len(element_data), len(elements)) + \
+           element_data
 
 
-def hex_to_dfu(ih, vid, pid):
+def hex_to_dfu(ih, vid=0, pid=0):
     """
     Convert the IntelHex object into a DFU and return it
     """

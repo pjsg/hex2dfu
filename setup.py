@@ -15,6 +15,11 @@ setup(name='hex2dfu',
           'markdown',
           'docopt',
       ],
+      test_suite='nose.collector',
+      tests_require=[
+           'nose',
+      ],
+      include_package_data=True,
       long_description=readme(),
       zip_safe=False,
       entry_points={
